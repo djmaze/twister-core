@@ -1,7 +1,7 @@
 #
 # Dockerfile for building Twister peer-to-peer micro-blogging
 #
-FROM ubuntu:14.04
+FROM mazzolino/armhf-ubuntu:14.04
 
 # Install twister-core
 RUN apt-get update
@@ -9,7 +9,7 @@ RUN apt-get install -y git autoconf libtool build-essential libboost-all-dev lib
 #RUN git clone https://github.com/miguelfreitas/twister-core.git
 ADD . /twister-core
 RUN cd twister-core && \
-    ./bootstrap.sh && \
+    ./bootstrap.sh --disable-sse2 --with-boost-libdir=/usr/lib/arm-linux-gnueabihf && \
     make
 
 # Install twister-html
